@@ -19,23 +19,15 @@
 #define BUFSIZE   256
 
 //信号处理函数
-void aio_handler(sigval_t sigval)
+void aio_handler(int sigval)
 {
     struct aiocb  *cbp;
     int           ret;
 
-    printf("异步操作完成，收到通知\n");
-    //获取aiocb 结构体的信息
-    cbp = (struct aiocb*)sigval.sival_ptr;
+    //接收到的信号
+    printf("signo   %d\n",sigval);
 
-    /* 当使用signal函数时，无法获取到aiocb的内容
-     * 建议使用sigaction函数
-    if(aio_error(cbp) == 0)
-    {
-        ret = aio_return(cbp);
-        printf("读请求返回值：%d\n",ret);
-    }
-    */
+    printf("异步操作完成，收到通知\n");
     while(1)
     {
         printf("正在处理异步通知。。。\n");
